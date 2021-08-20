@@ -1,25 +1,22 @@
 import pygame
-import sys
+import controller
 from gun import Gun
+from pygame.sprite import Group
 
 
 def run():
-
     pygame.init()
-    screen = pygame.display.set_mode((1200, 800))
-    pygame.display.set_caption('space_protections')
+    screen = pygame.display.set_mode((700, 800))
+    pygame.display.set_caption('py_game')
     bg_color = (0, 0, 0)
     gun = Gun(screen)
+    bullets = Group()
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        screen.fill(bg_color)
-        gun.output()
-        pygame.display.flip()
-
+        controller.events(screen, gun, bullets)
+        gun.update_gun()
+        controller.update(bg_color, screen, gun, bullets)
+        controller.update_bullets(bullets)
 
 
 run()
